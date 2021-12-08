@@ -1,9 +1,9 @@
  
-class FinderPath:
+class FinderPathHandler:
     def __init__(self) -> None:
         pass
 
-    def find_longest_path(i, j, matrix) -> None:
+    def Handler(i, j, matrix) -> None:
         print(i)
         print(j)
         new_matrix = [[int(c) for c in line.split(" ")] for line in matrix]
