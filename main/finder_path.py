@@ -23,10 +23,58 @@ class PathHandler:
         pass
 
     def Handler(data: Dict):
-        graph = Graph().build_graph(data=data)
-        peak = Peaks().find_peak(G=graph)
-        bottom = Bottom().find_bottom(G=graph)
+        graph_instance = Graph()
+        peak_instance = Peaks()
+        bottom_instance = Bottom()
+        path_instance = Path()
+
+        graph = graph_instance.build_graph(data=data)
         
+        print("------------------------------------------")
+        print("Graph")
+        print(graph)
+        print("------------------------------------------")
+        print(" ")
+        print("------------------------------------------")
+        print("peak")
+        peak = peak_instance.find_peak(G=graph)
+        print(peak)
+        print("------------------------------------------")
+        print(" ")
+        print("------------------------------------------")
+        print("Bottom")
+        bottom = bottom_instance.find_bottom(G=graph)
+        print(bottom)
+        print("------------------------------------------")
+        
+        N = {}
+
+        print(" ")
+        print("------------------------------------------")
+        print("Neighboors")
+        for area in graph:
+            N[area] = Neighboors().find_neighbors(graph, area)
+            print(area, N[area])
+        print("------------------------------------------")
+        
+        print(" ")
+        print("------------------------------------------")
+        print("Next peaks")
+        for area in graph:
+            print(area, graph[area], peak_instance.find_next_peak(N, graph, area))
+        print("------------------------------------------")
+
+        print(" ")
+        print("------------------------------------------")
+        print("Path")
+        P = {}
+        P[peak] = graph[peak]
+        path = [peak]
+        path_instance.find_path(N, graph, path, bottom, peak, peak_instance)
+        print(path)
+        return path
+        print(" ")
+        print("------------------------------------------")
 
 class Peaks:
     def __init__(self) -> None:
@@ -38,6 +86,17 @@ class Peaks:
                 self.maxpt = G[coord]
                 maxcoord = coord
         return maxcoord        
+
+    def find_next_peak(self, N, G, peak):
+        next_peak = None
+        next_peak_val = None
+        for n in N[peak]:
+            if N[peak][n] < G[peak]:
+                if N[peak][n] != next_peak_val:
+                    next_peak = n
+                    next_peak_val = N[peak][n]
+        return next_peak, next_peak_val
+
 
 class Bottom:
     def __init__(self) -> None:
@@ -52,6 +111,45 @@ class Bottom:
                 self.mincoord = coord
 
         return self.mincoord
+
+class Neighboors:
+    def __init__(self) -> None:
+        pass
+    
+    def get_tuple(self, tuple_xy):
+        x, y = tuple_xy
+        return x, y
+
+    def find_neighbors(self, G, peak):
+        neighbors = {}
+        x, y = self.get_tuple(peak)
+        N = x, y-1
+        S = x, y+1
+        E = x+1, y
+        W = x-1, y
+        directions = [N, E, S, W]
+        for d in directions:
+            if d in G:
+                if d != peak:
+                    neighbors[d] = G[d]
+        
+        return neighbors
+
+
+class Path:
+    def __init__(self) -> None:
+        pass
+
+    def find_path(self, N, G, path, bottom, peak, peak_instance):
+        if peak == bottom:
+            return path
+        next_peak, val = peak_instance.find_next_peak(N, G, peak)
+        print(next_peak, val)
+        if not next_peak == None:
+            path.append(next_peak)
+        else:
+            return path
+        return self.find_path(N, G, path, bottom, next_peak, peak_instance)
 
 
 if __name__ == "__main__":
