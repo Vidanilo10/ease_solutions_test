@@ -2,10 +2,10 @@ import argparse
 from finder_path import FinderPath
 
 
-class EaseTest:
+class HandleArgs:
     def __init__(self) -> None:
         pass
-
+    
     def get_args(self):
         parser = argparse.ArgumentParser()
         parser.add_argument(
@@ -14,12 +14,18 @@ class EaseTest:
         args = parser.parse_args()
         return args
 
+
+class Main(HandleArgs):
+    
+    def __init__(self) -> None:
+        pass
+
+
     def main(self) -> None:
         with open(self.get_args().path, "r") as f:
             i, j = f.readline().strip().split(" ")
-            matrix = f.readlines()
+            matrix = [line.strip() for line in f.readlines()]
             FinderPath.find_longest_path(i, j, matrix)
 
-
 if __name__ == "__main__":
-    EaseTest().main()
+    Main().main()
