@@ -20,12 +20,19 @@ class Main(HandleArgs):
     def __init__(self) -> None:
         pass
 
-
     def main(self) -> None:
-        with open(self.get_args().path, "r") as f:
-            i, j = f.readline().strip().split(" ")
-            matrix = [line.strip() for line in f.readlines()]
-            PathHandler.Handler(i, j, matrix)
+        try:
+            file = open(self.get_args().path, "r").readlines()
+        except FileNotFoundError:
+            print(f'{str(FileNotFoundError)}')
+        finally:
+            first_line = file.pop(0)
+            i, j = first_line.strip().split(" ")
+            first = [line.strip().split(" ") for line in file]            
+            flatten_matrix = [int(val) for sublist in first for val in sublist]
+            data = {'x': i, 'y': j, 'matrix': flatten_matrix}
+            PathHandler.Handler(data=data)
+
 
 if __name__ == "__main__":
     Main().main()
