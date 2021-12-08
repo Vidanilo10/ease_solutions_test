@@ -1,5 +1,5 @@
 import argparse
-from finder_path import FinderPathHandler
+from finder_path import PathHandler
 
 
 class HandleArgs:
@@ -25,7 +25,7 @@ class Main(HandleArgs):
         with open(self.get_args().path, "r") as f:
             i, j = f.readline().strip().split(" ")
             matrix = [line.strip() for line in f.readlines()]
-            FinderPathHandler.Handler(i, j, matrix)
+            PathHandler.Handler(i, j, matrix)
 
 if __name__ == "__main__":
     Main().main()
