@@ -5,30 +5,30 @@ Testing
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+* pip install -r requirements.txt
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+* git clone https://github.com/Vidanilo10/ease_solutions_test.git
+* cd easy_solutions_test
+* Unix systems:
+    - source env/bin/activate
+* Windows systems:
+    - cd env/Scripts
+    - activate.bat
+    cd ../..
+* pip install -r requirements.txt
+
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
+* cd main
+* python main.py or python main.py --path "input_file_path" 
 ```
 code blocks for commands
 ```
 
-## Help
-
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
-
-## Authors
+## Author
 
 Victor Castaneda  
 [Vidanilo10](https://github.com/Vidanilo10)
