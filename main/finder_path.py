@@ -13,56 +13,37 @@ class Graph():
             for a in range(int(data['x'])):
                 self.G[self.tuple(a, b)] = data['matrix'].pop(0)
 
+        """
         for b in range(int(data['y'])):
             for a in range(int(data['x'])):
                 print(self.G[self.tuple(a, b)])
+        """
         return self.G
-
+        
 class PathHandler:
     def __init__(self) -> None:
         pass
 
     def Handler(data: Dict):
+        # Instance section
         graph_instance = Graph()
         peak_instance = Peaks()
         bottom_instance = Bottom()
         path_instance = Path()
 
+        # Logic section
         graph = graph_instance.build_graph(data=data)
-        
-        print("------------------------------------------")
-        print("Graph")
-        print(graph)
-        print("------------------------------------------")
-        print(" ")
-        print("------------------------------------------")
-        print("peak")
         peak = peak_instance.find_peak(G=graph)
-        print(peak)
-        print("------------------------------------------")
-        print(" ")
-        print("------------------------------------------")
-        print("Bottom")
         bottom = bottom_instance.find_bottom(G=graph)
-        print(bottom)
-        print("------------------------------------------")
         
         N = {}
-
-        print(" ")
-        print("------------------------------------------")
-        print("Neighboors")
         for area in graph:
-            N[area] = Neighboors().find_neighbors(graph, area)
-            print(area, N[area])
-        print("------------------------------------------")
+            N[area] = Neighbors().find_neighbors(graph, area)
+            #print(area, N[area])
         
-        print(" ")
-        print("------------------------------------------")
-        print("Next peaks")
         for area in graph:
             print(area, graph[area], peak_instance.find_next_peak(N, graph, area))
-        print("------------------------------------------")
+        
 
         print(" ")
         print("------------------------------------------")
@@ -92,7 +73,7 @@ class Peaks:
         next_peak_val = None
         for n in N[peak]:
             if N[peak][n] < G[peak]:
-                if N[peak][n] != next_peak_val:
+                if N[peak][n]:
                     next_peak = n
                     next_peak_val = N[peak][n]
         return next_peak, next_peak_val
@@ -112,7 +93,7 @@ class Bottom:
 
         return self.mincoord
 
-class Neighboors:
+class Neighbors:
     def __init__(self) -> None:
         pass
     
