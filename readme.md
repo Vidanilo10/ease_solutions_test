@@ -24,9 +24,7 @@ Testing
 
 * cd main
 * python main.py or python main.py --path "input_file_path" 
-```
-code blocks for commands
-```
+
 
 ## Author
 
