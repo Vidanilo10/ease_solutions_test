@@ -1,7 +1,7 @@
 from typing import Any, Dict, Tuple
 
 
-class Graph():
+class Graph:
     def __init__(self) -> None:
         self.G: Dict = {}
 
@@ -9,9 +9,9 @@ class Graph():
         return x, y
 
     def build_graph(self, data):
-        for b in range(int(data['y'])):
-            for a in range(int(data['x'])):
-                self.G[self.tuple(a, b)] = data['matrix'].pop(0)
+        for b in range(int(data["y"])):
+            for a in range(int(data["x"])):
+                self.G[self.tuple(a, b)] = data["matrix"].pop(0)
 
         """
         for b in range(int(data['y'])):
@@ -19,7 +19,8 @@ class Graph():
                 print(self.G[self.tuple(a, b)])
         """
         return self.G
-        
+
+
 class PathHandler:
     def __init__(self) -> None:
         pass
@@ -35,15 +36,14 @@ class PathHandler:
         graph = graph_instance.build_graph(data=data)
         peak = peak_instance.find_peak(G=graph)
         bottom = bottom_instance.find_bottom(G=graph)
-        
+
         N = {}
         for area in graph:
             N[area] = Neighbors().find_neighbors(graph, area)
-            #print(area, N[area])
-        
+            # print(area, N[area])
+
         for area in graph:
             print(area, graph[area], peak_instance.find_next_peak(N, graph, area))
-        
 
         print(" ")
         print("------------------------------------------")
@@ -57,6 +57,7 @@ class PathHandler:
         print(" ")
         print("------------------------------------------")
 
+
 class Peaks:
     def __init__(self) -> None:
         self.maxpt = 0
@@ -66,7 +67,7 @@ class Peaks:
             if G[coord] > self.maxpt:
                 self.maxpt = G[coord]
                 maxcoord = coord
-        return maxcoord        
+        return maxcoord
 
     def find_next_peak(self, N, G, peak):
         next_peak = None
@@ -85,7 +86,7 @@ class Bottom:
 
     def find_bottom(self, G):
         minpt = G[0, 0]
-        
+
         for coord in G:
             if G[coord] < minpt:
                 minpt = G[coord]
@@ -93,10 +94,11 @@ class Bottom:
 
         return self.mincoord
 
+
 class Neighbors:
     def __init__(self) -> None:
         pass
-    
+
     def get_tuple(self, tuple_xy):
         x, y = tuple_xy
         return x, y
@@ -104,16 +106,16 @@ class Neighbors:
     def find_neighbors(self, G, peak):
         neighbors = {}
         x, y = self.get_tuple(peak)
-        N = x, y-1
-        S = x, y+1
-        E = x+1, y
-        W = x-1, y
+        N = x, y - 1
+        S = x, y + 1
+        E = x + 1, y
+        W = x - 1, y
         directions = [N, E, S, W]
         for d in directions:
             if d in G:
                 if d != peak:
                     neighbors[d] = G[d]
-        
+
         return neighbors
 
 
