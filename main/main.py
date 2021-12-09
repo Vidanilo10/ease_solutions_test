@@ -9,7 +9,7 @@ class HandleArgs:
     def get_args(self):
         parser = argparse.ArgumentParser()
         parser.add_argument(
-            "--path", help="Input path file", nargs="?", default="4x4.txt"
+            "--path", help="Input path file", nargs="?", default="map.txt"
         )
         args = parser.parse_args()
         return args
